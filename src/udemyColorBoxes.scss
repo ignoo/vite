@@ -1,0 +1,25 @@
+.main {
+    height: 100vh;
+    width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        height: 500px;
+        width: 500px;
+        justify-content: center;
+        align-items: center;
+        .sq {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    .gug {
+        color: aquamarine;
+        width: 100px;
+        height: 100px;
+    }
+}
+  

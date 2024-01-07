@@ -1,0 +1,221 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+body {
+  line-height: 1;
+  color: black;
+  background: white;
+}
+ol,
+ul {
+  list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+}
+blockquote,
+q {
+  quotes: "" "";
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap');
+
+.container {
+    background-image: url("../pics/background.jpg");
+    background-size: cover;
+    font-family: 'Rubik Maps';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    justify-content: space-around;
+    height: 100vh;
+    background-color: rgb(63, 60, 56);
+    h1 {
+        font-size: 100px;
+    }
+    .display-timer {
+        font-size: 100px;
+    }
+    button {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 900;
+        &:hover {
+            border: 2px solid lightgray;
+        }
+    }
+    .buttons {
+        display: flex;
+        gap: 4px;
+        .start-btn {
+            background-color: rgb(55, 103, 42);
+        }
+        .pause-btn {
+            background-color: rgb(142, 134, 52)
+        }
+        .stop-btn {
+            background-color: rgb(134, 53, 53);
+        }
+    }
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        color: lightgray;
+        h2 {
+            font-size: 40px;
+        }
+        .input {
+            display: flex;
+            gap: 16px;
+            input {
+                border-radius: 4px;
+                height: 26px;
+                width: 60px;
+                padding-top: 5px;
+                margin-right: 5px;
+                background-color: beige;
+                border: 0;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: end;
+                color: black;
+                font-weight: 900;
+                font-size: 20px;
+            }
+            span {
+                font-size: 25px;
+            }
+        }
+        .set-btn {
+            background-color: rgb(55, 103, 42);
+        }
+    }
+}
+
+::placeholder {
+    color: dimgray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.blanket {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+
+.popup {
+    background-image: url("../pics/done.jpg");
+    background-size: cover;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    border-radius: 20px;
+    text-align: end;
+    .close-popup {
+        background: transparent;
+        color: black;
+        font-size: 40px;
+        font-weight: 300;
+        padding: 10px 20px 0 0;
+        &:hover {
+            border: 0;
+        }
+
+    }
+}
