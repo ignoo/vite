@@ -3,7 +3,6 @@ import './App.scss'
 import Popup from './components/timer/Popup';
 
 function App() {
-    // comment
     const [hours, setHours] = useState("00");
     const [minutes, setMinutes] = useState("00");
     const [seconds, setSeconds] = useState("00");
@@ -14,6 +13,25 @@ function App() {
     const [selectedSeconds, setSelectedSeconds] = useState("");
 
     const [popupOn, setPopupOn] = useState(false);
+
+    const [destytojoClass, setDestytojoClass] = useState('hideD');
+    const [mentoriausClass, setMentoriausClass] = useState('hideM');
+
+    const laikasAudio = new Audio('../audio/laikasNesikeicia.mp3');
+    const katinukaiAudio = new Audio('../audio/katinukai.mp3');
+    const kaipSekasiAudio = new Audio('../audio/kaipSekasi.mp3');
+    
+    const hideDestytoja = _ => {
+        setTimeout(() => {
+        setDestytojoClass('hideD');
+        }, 4000);
+    }
+
+    const hideMentoriu = _ => {
+        setTimeout(() => {
+            setMentoriausClass('hideM');
+        }, 4000);
+    }
 
     useEffect(_ => {
         let interval;
@@ -33,11 +51,40 @@ function App() {
         }
         if(hours === 0 && minutes === 0 && seconds === 1) {
             setIsRunning(false);
+            setHours("00");
+            setMinutes("00");
+            setSeconds("00");
             showPopup()
         }
         return () => clearInterval(interval);
     }, [seconds, minutes, hours, isRunning])
 
+    useEffect(_ => {
+        let playKatinukai;
+        if(isRunning) {
+            setTimeout(() => {            
+            playKatinukai = setInterval(_ => {
+                katinukaiAudio.play();
+                setDestytojoClass('showD');
+                hideDestytoja();                
+            }, 10000);
+            }, 5000);
+        }
+        return () => clearInterval(playKatinukai); 
+    }, [isRunning])
+
+
+    useEffect(_ => {
+        let playSekasi;
+        if(isRunning) {
+            playSekasi = setInterval(_ => {
+                kaipSekasiAudio.play();
+                setMentoriausClass('showM');
+                hideMentoriu();                
+            }, 10000);
+        }
+        return () => clearInterval(playSekasi);
+    }, [isRunning])
 
 
     const handleHourChange = e => {
@@ -64,9 +111,14 @@ function App() {
 
     }
 
-    const startTimer = _ => setIsRunning(true);
+    const startTimer = _ => {
+        setIsRunning(true);
+    }
 
-    const pauseTimer = _ => setIsRunning(false);
+    const pauseTimer = _ => {
+        setIsRunning(false);
+        laikasAudio.play();
+    }
 
     const stopTimer = _ => {
         setIsRunning(false);
@@ -92,24 +144,34 @@ function App() {
                 <button className='stop-btn' onClick={stopTimer}>STOP</button>
             </div>
             <div className='input-container'>
-                <h2>Kiek laiko dirbsite?</h2>
-                <div className='input'>
-                    <div className='input-hours'>
-                        <input type="text" name="hours" placeholder='0' value={selectedHours} onChange={handleHourChange}/>
-                        <span>val.</span>
-                    </div>
-                    <div className='input-minutes'>
-                        <input type="text" name="minutes" placeholder='0' value={selectedMinutes} onChange={handleMinuteChange}/>
-                        <span>min.</span>
-                    </div>
-                    <div className='input-seconds'>
-                        <input type="text" name="seconds" placeholder='0' value={selectedSeconds} onChange={handleSecondChange}/>
-                        <span>sek.</span>
+                <div className='juosta'>
+                    <h2>Kiek laiko dirbsite?</h2>
+                    <div className='input'>
+                        <div className='input-hours'>
+                            <input type="text" name="hours" placeholder='0' value={selectedHours} onChange={handleHourChange}/>
+                            <span>val.</span>
+                        </div>
+                        <div className='input-minutes'>
+                            <input type="text" name="minutes" placeholder='0' value={selectedMinutes} onChange={handleMinuteChange}/>
+                            <span>min.</span>
+                        </div>
+                        <div className='input-seconds'>
+                            <input type="text" name="seconds" placeholder='0' value={selectedSeconds} onChange={handleSecondChange}/>
+                            <span>sek.</span>
+                        </div>
                     </div>
                 </div>
                 <button className='set-btn' onClick={setTimer}>NUSTATYTI</button>
             </div>
             <Popup popupOn={popupOn} setPopupOn={setPopupOn}/>
+            <div className='pics-container'>
+                <div className={`destytojas ${destytojoClass}`}>
+                    <img src="../pics/destytojastransparent.png" alt="destytojas" />
+                </div>
+                <div className={`mentorius ${mentoriausClass}`}>
+                    <img src="../pics/mentortransparent.png" alt="mentorius" />
+                </div>
+            </div>
           </div>
           
       </>
