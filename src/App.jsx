@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.scss'
 import Popup from './components/timer/Popup';
+import Padrasinimas from './components/timer/Padrasinimas';
 
 function App() {
     const [hours, setHours] = useState("00");
@@ -13,6 +14,9 @@ function App() {
     const [selectedSeconds, setSelectedSeconds] = useState("");
 
     const [popupOn, setPopupOn] = useState(false);
+    const [padrasinimasOn, setPadrasinimasOn] = useState(false);
+    const [selectedPadrasinimas, setSelectedPadrasinimas] = useState("");
+    const [padrasinimoIntervalas, setPadrasinimoIntervalas] = useState(0);
 
     const [destytojoClass, setDestytojoClass] = useState('hideD');
     const [mentoriausClass, setMentoriausClass] = useState('hideM');
@@ -63,14 +67,14 @@ function App() {
 
     useEffect(_ => {
         let playKatinukai;
-        if(isRunning) {
+        if(isRunning && padrasinimoIntervalas !== 0) {
             setTimeout(() => {            
-            playKatinukai = setInterval(_ => {
-                katinukaiAudio.play();
-                setDestytojoClass('showD');
-                hideDestytoja();                
-            }, 10000);
-            }, 5000);
+                playKatinukai = setInterval(_ => {
+                    katinukaiAudio.play();
+                    setDestytojoClass('showD');
+                    hideDestytoja();                
+                }, padrasinimoIntervalas);
+            }, padrasinimoIntervalas/2);
         }
         return () => clearInterval(playKatinukai); 
     }, [isRunning])
@@ -78,12 +82,12 @@ function App() {
 
     useEffect(_ => {
         let playSekasi;
-        if(isRunning) {
+        if(isRunning && padrasinimoIntervalas !== 0) {
             playSekasi = setInterval(_ => {
                 kaipSekasiAudio.play();
                 setMentoriausClass('showM');
                 hideMentoriu();                
-            }, 10000);
+            }, padrasinimoIntervalas);
         }
         return () => clearInterval(playSekasi);
     }, [isRunning])
@@ -106,9 +110,9 @@ function App() {
             selectedHours === "" ? setHours(0) : setHours(selectedHours);
             selectedMinutes === "" ? setMinutes(0) : setMinutes(selectedMinutes);
             selectedSeconds === "" ? setSeconds(0) : setSeconds(selectedSeconds);
-            setSelectedHours(0);
-            setSelectedMinutes(0);
-            setSelectedSeconds(0); 
+            setSelectedHours('');
+            setSelectedMinutes('');
+            setSelectedSeconds(''); 
         }
 
     }
@@ -129,9 +133,28 @@ function App() {
         setSeconds("00");
     }
 
-
     const showPopup = _ => {
         setPopupOn(true);
+    }
+
+    const handlePadrasinimoChange = e => {
+        setSelectedPadrasinimas(e.target.value);
+
+    }
+
+    const handlePadrasinimoSubmit = _ => {
+        if (!parseFloat(`${selectedPadrasinimas}`)) {
+            setSelectedPadrasinimas('NOT A NUMBER!');
+        } else {
+            setPadrasinimoIntervalas(selectedPadrasinimas * 2000);
+            setSelectedPadrasinimas('');
+            setPadrasinimasOn(false);
+        }
+    }
+    
+
+    const showPadrasinimas = _ => {
+        setPadrasinimasOn(true);
     }
 
 
@@ -165,7 +188,9 @@ function App() {
                 </div>
                 <button className='set-btn' onClick={setTimer}>NUSTATYTI</button>
             </div>
+            <button className='padrasinimo-btn' onClick={showPadrasinimas}>Padrąsinimas</button>
             <Popup popupOn={popupOn} setPopupOn={setPopupOn}/>
+            <Padrasinimas padrasinimasOn={padrasinimasOn} setPadrasinimasOn={setPadrasinimasOn} selectedPadrasinimas={selectedPadrasinimas} handleChange={handlePadrasinimoChange} handleSubmit={handlePadrasinimoSubmit}/>
             <div className='pics-container'>
                 <div className={`destytojas ${destytojoClass}`}>
                     <img src="../pics/destytojastransparent.png" alt="destytojas" />

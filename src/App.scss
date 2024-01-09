@@ -164,13 +164,13 @@ q {
                 input {
                     border-radius: 4px;
                     height: 26px;
-                    width: 60px;
+                    width: 40px;
                     padding-top: 5px;
                     margin-right: 5px;
                     background-color: beige;
                     border: 0;
                     font-family: Arial, Helvetica, sans-serif;
-                    text-align: end;
+                    text-align: center;
                     color: black;
                     font-weight: 900;
                     font-size: 20px;
@@ -196,13 +196,14 @@ q {
             width: 800px;
             top: 70%;
             left: 50%;
-            transition: all 0.5s linear;
+            transition: all 0.8s linear;
             &.hideD {
                 transform: translate(0%, 50%);
             }
             &.showD {
                 transform: translate(0%, -65%);
             }
+            
         }
         .mentorius {
             display: flex;
@@ -218,7 +219,6 @@ q {
             &.showM {
                 transform: translate(0%, -80%);
             }
-
         }
     }
 }
@@ -228,6 +228,16 @@ q {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 900;
+}
+
+.padrasinimo-btn {
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    transform: translate(-50%);
+    background-color: white;
+    color: black;
+    border: 1px solid black;
 }
 
 .blanket {
@@ -240,6 +250,9 @@ q {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.6;
+    &.popupbl {
+        opacity: 0.9;
+    }
   }
 
 .popup {
@@ -254,15 +267,32 @@ q {
     z-index: 200;
     border-radius: 20px;
     text-align: end;
-    .close-popup {
-        background: transparent;
-        color: black;
-        font-size: 40px;
-        font-weight: 300;
-        padding: 10px 20px 0 0;
-        &:hover {
-            border: 0;
-        }
+}
 
+.padr-container {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-150%, -135%);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 30px;
+    font-weight: 900;
+    font-family: monospace;
+    .padr-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    input {
+        height: 30px;
+        border-radius: 6px;
+        border: 0;
+        text-align: center;
     }
 }

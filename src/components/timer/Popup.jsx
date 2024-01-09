@@ -10,10 +10,8 @@ export default function Popup({popupOn, setPopupOn}) {
 
     return (
         <>
-            <div className="blanket"></div>
-            <div className="popup">
-                <button className="close-popup" onClick={hidePopup}>x</button>
-            </div>
+            <div className="blanket popupbl" onClick={hidePopup}></div>
+            <div className="popup" onClick={hidePopup}></div>
         </>
     );
 }
