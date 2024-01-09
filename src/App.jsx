@@ -20,6 +20,7 @@ function App() {
     const laikasAudio = new Audio('../audio/laikasNesikeicia.mp3');
     const katinukaiAudio = new Audio('../audio/katinukai.mp3');
     const kaipSekasiAudio = new Audio('../audio/kaipSekasi.mp3');
+    const viskasAudio = new Audio('../audio/viskas.mp3');
     
     const hideDestytoja = _ => {
         setTimeout(() => {
@@ -54,7 +55,8 @@ function App() {
             setHours("00");
             setMinutes("00");
             setSeconds("00");
-            showPopup()
+            showPopup();
+            viskasAudio.play();
         }
         return () => clearInterval(interval);
     }, [seconds, minutes, hours, isRunning])
